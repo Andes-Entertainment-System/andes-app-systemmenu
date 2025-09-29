@@ -1,0 +1,43 @@
+# Define your resources here.
+tilesets:
+  - id: tileset_font
+    path: tilesets/font.png
+    keep_duplicates: true
+  - id: tileset_bg
+    path: tilesets/bg.png
+    export_plane_arrangement: true
+    plane_arrangement_offset: 1
+  - id: tileset_bigframe
+    path: tilesets/bigframe.png
+    export_plane_arrangement: true
+    plane_arrangement_offset: 32
+spritesets:
+  - id: spriteset_chevron
+    path: spritesets/chevron.png
+    settings:
+      split:
+        mode: manual
+        manual_frames:
+          - x: 0
+            y: 0
+            width: 24
+            height: 48
+          - x: 24
+            y: 0
+            width: 48
+            height: 24
+          - x: 24
+            y: 24
+            width: 48
+            height: 24
+palettes:
+  - id: palette_main
+    path: palettes/main.pal
+audio:
+  - id: music_main
+    path: audio/wmb.opus
+    loop_start: 115200
+  - id: music_tones
+    path: audio/thetones.opus
+  - id: sfx_beep
+    path: audio/om.opus

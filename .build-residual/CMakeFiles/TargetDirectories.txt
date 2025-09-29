@@ -1,0 +1,3 @@
+/mnt/BigTheCat/progaming_/micro-related/andes-app-systemmenu/.build-residual/CMakeFiles/executable.bin.dir
+/mnt/BigTheCat/progaming_/micro-related/andes-app-systemmenu/.build-residual/CMakeFiles/edit_cache.dir
+/mnt/BigTheCat/progaming_/micro-related/andes-app-systemmenu/.build-residual/CMakeFiles/rebuild_cache.dir

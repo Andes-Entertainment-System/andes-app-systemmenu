@@ -1,0 +1,32 @@
+CMakeFiles/executable.bin.dir/mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/api/src/andes_graphics.c.obj: \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/api/src/andes_graphics.c \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/cmake/../api/include/andes_graphics.h \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/cmake/../api/include/andes_graphics_maps.h \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/cmake/../api/include/andes_graphics_tiles.h \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/cmake/../api/include/andes_res_types.h \
+  /opt/wasi-sdk/lib/clang/19/include/stdbool.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/stdbool.h \
+  /opt/wasi-sdk/lib/clang/19/include/stddef.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_header_macro.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_ptrdiff_t.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_size_t.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_wchar_t.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_null.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_max_align_t.h \
+  /opt/wasi-sdk/lib/clang/19/include/__stddef_offsetof.h \
+  /opt/wasi-sdk/lib/clang/19/include/stdint.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/stdint.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/bits/alltypes.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__struct_timeval.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__typedef_time_t.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__typedef_suseconds_t.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__struct_timespec.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__struct_iovec.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/bits/stdint.h \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/cmake/../api/include/andes_graphics_palette.h \
+  /mnt/BigTheCat/progaming_/micro-related/andes-sdk/toolchain/cmake/../api/include/andes_graphics_sprites.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/stdlib.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__functions_malloc.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/__header_stdlib.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/features.h \
+  /opt/wasi-sdk/share/wasi-sysroot/include/wasm32-wasi/alloca.h
