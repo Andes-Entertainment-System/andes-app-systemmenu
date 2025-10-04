@@ -35,8 +35,8 @@ palettes:
     path: palettes/main.pal
 audio:
   - id: music_main
-    path: audio/wmb.opus
-    loop_start: 115200
+    path: audio/dataselect.opus
+    # loop_start: 19390
   - id: music_tones
     path: audio/thetones.opus
   - id: sfx_beep

@@ -18,6 +18,7 @@
 #define TILESET_FONT_OFFSET 8063
 
 struct AppEntry {
+  char path[STRING_BUF_SIZE];
   char id[STRING_BUF_SIZE];
   char title[STRING_BUF_SIZE];
   char author[STRING_BUF_SIZE];
@@ -33,8 +34,25 @@ void readMetaItem(FILE *file, void *out) {
   fread(out, sizeof(char), itemSize, file);
 }
 
-void loadAppEntry(char *path, struct AppEntry *entry) {
-  FILE *file = fopen(path, "r");
+bool checkAppValidity(char *path) {
+  char tempPath[STRING_BUF_SIZE];
+  snprintf(tempPath, sizeof(tempPath), "./apps/%s", path);
+
+  FILE *file = fopen(tempPath, "r");
+
+  // ANDES magic header check
+  char magicHeader[6];
+  memset(magicHeader, 0, 6);
+  fread(magicHeader, sizeof(char), 5, file);
+  bool isValidApp = strcmp(magicHeader, "ANDES") == 0;
+
+  fclose(file);
+  return isValidApp;
+}
+
+bool loadAppEntry(char *path, struct AppEntry *entry) {
+  snprintf(entry->path, sizeof(entry->path), "./apps/%s", path);
+  FILE *file = fopen(entry->path, "r");
 
   fseek(file, ANDES_HEADER_SIZE, SEEK_SET);
 
@@ -52,6 +70,8 @@ void loadAppEntry(char *path, struct AppEntry *entry) {
   for (int i = 0; i < sizeof(entry->smallThumbnail); i++) {
     entry->smallThumbnail[i] += 128;
   }
+
+  return true;
 }
 
 float shit;
@@ -70,6 +90,12 @@ Sprite chevronRight = {
     .set = &RES_spriteset_chevron,
     .position = {.x = GFX_SCREEN_WIDTH - 24, .y = GFX_SCREEN_HEIGHT / 2 - 36},
 };
+
+char *getPathExtension(char *path) {
+  char *dot = strrchr(path, '.');
+  if (!dot || dot == path) return "";
+  return dot + 1;
+}
 
 void gfxPrintf(uint32_t x, uint32_t y, const char *format, ...) {
   char str[40];
@@ -107,23 +133,24 @@ void setup() {
   TIL_setPlaneRect(TILEPLANE_FG, 3, 0, BIG_THUMBNAIL_WIDTH / 8 + 2, BIG_THUMBNAIL_HEIGHT / 8 + 3,
                    RES_tileset_bigframe.planeArrangement);
 
+  // SFX_playMusic(&RES_music_main);
+
   for (int y = 0; y < 64; y += 4) {
     for (int x = 0; x < 64; x += 4) {
       TIL_setPlaneRect(TILEPLANE_BG, x, y, 4, 4, RES_tileset_bg.planeArrangement);
     }
   }
 
+  gfxPrintf(1, 27, "%s", appEntries[0].title);
+  gfxPrintf(1, 28, "by %s", appEntries[0].author);
+
   DIR *d;
   struct dirent *dir;
-  d = opendir(".");
+  d = opendir("./apps");
   if (d) {
     while ((dir = readdir(d)) != NULL) {
       if (dir->d_type != 4) continue;
-
-      loadAppEntry(dir->d_name, &appEntries[0]);
-
-      gfxPrintf(1, 27, "%s", appEntries[0].title);
-      gfxPrintf(1, 28, "by %s", appEntries[0].author);
+      if (!checkAppValidity(dir->d_name)) continue;
 
       STO_copyPtrToRegister(REG_PALETTE, 128 * 3, appEntries[0].bigThumbnailPalette,
                             sizeof(appEntries[0].bigThumbnailPalette));
@@ -147,5 +174,7 @@ void process() {
 
   ass = ass + (512.0 - ass) * 0.1;
 
-  if (JOY_getButtonPressed(0, BUTTON_A)) ass = 0;
+  if (JOY_getButtonPressed(0, BUTTON_A)) {
+    I_SYS_loadApp(appEntries[0].path);
+  };
 }
