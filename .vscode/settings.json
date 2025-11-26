@@ -5,7 +5,8 @@
     "https://andes-entertainment-system.github.io/andes-sdk/toolchain/yaml/spriteset_settings.schema.json": "resources/sprite{s, sets}/**/*.yml",
   },
   "files.associations": {
-    "*.lemon": "c",
-    "dirent.h": "c"
+    "dirent.h": "c",
+    "math.h": "c",
+    "cmath": "c"
   },
 }

@@ -7,8 +7,8 @@
 
 // ---- audio ----
 extern AudioResource RES_music_main;
-extern AudioResource RES_music_tones;
-extern AudioResource RES_sfx_beep;
+extern AudioResource RES_sfx_select;
+extern AudioResource RES_sfx_enter;
 
 // ---- palettes ----
 extern PaletteResource RES_palette_main;
@@ -16,6 +16,8 @@ extern PaletteResource RES_palette_main;
 // ---- rawdata ----
 
 // ---- spritesets ----
+extern const SpriteSetFrame FRAMES_spriteset_smallframe[];
+extern SpriteSetResource RES_spriteset_smallframe;
 extern const SpriteSetFrame FRAMES_spriteset_chevron[];
 extern SpriteSetResource RES_spriteset_chevron;
 
@@ -23,5 +25,6 @@ extern SpriteSetResource RES_spriteset_chevron;
 extern TileSetResource RES_tileset_font;
 extern TileSetResource RES_tileset_bg;
 extern TileSetResource RES_tileset_bigframe;
+extern TileSetResource RES_tileset_cursor;
 
 // ---- tilemaps ----

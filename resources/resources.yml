@@ -11,7 +11,16 @@ tilesets:
     path: tilesets/bigframe.png
     export_plane_arrangement: true
     plane_arrangement_offset: 32
+  - id: tileset_cursor
+    path: tilesets/cursor.png
+    export_plane_arrangement: true
+    plane_arrangement_offset: 64
 spritesets:
+  - id: spriteset_smallframe
+    path: spritesets/smallframe.png
+    settings:
+      split:
+        mode: none
   - id: spriteset_chevron
     path: spritesets/chevron.png
     settings:
@@ -35,9 +44,9 @@ palettes:
     path: palettes/main.pal
 audio:
   - id: music_main
-    path: audio/dataselect.opus
-    # loop_start: 19390
-  - id: music_tones
-    path: audio/thetones.opus
-  - id: sfx_beep
-    path: audio/om.opus
+    path: audio/faithfulpremonition.opus
+    loop_start: 652580
+  - id: sfx_select
+    path: audio/sfx_select.opus
+  - id: sfx_enter
+    path: audio/sfx_enter.opus

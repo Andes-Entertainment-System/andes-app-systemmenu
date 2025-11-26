@@ -6,37 +6,30 @@
 #include <string.h>
 
 #include "constants.h"
+#include "controls.h"
 #include "files.h"
 #include "graphics.h"
-
-uint32_t appCursor = 0;
-
-bool pressingButton = false;
 
 void setup() {
   fsInit();
   gfxInit();
 
-  fsLoadAppEntry(appFilenames[appCursor], &appEntries[0]);
-  gfxUpdateEntry();
+  SFX_loadSound(&RES_sfx_select);
+  SFX_loadSound(&RES_sfx_enter);
+  SFX_playMusic(&RES_music_main);
+
+  for (int i = 0; i < APP_ENTRY_AMOUNT; i++) {
+    fsLoadAppEntry(i);
+    gfxUpdateSmallFrame(i);
+  }
+
+  gfxUpdateBigFrame();
+  gfxFadeIn();
 }
 
 void process() {
-  if (JOY_getButtonJustPressed(0, BUTTON_DPADRIGHT) && appCursor != appCount - 1) {
-    appCursor++;
-    fsLoadAppEntry(appFilenames[appCursor], &appEntries[0]);
-    gfxNextEntry();
-  } else if (JOY_getButtonJustPressed(0, BUTTON_DPADLEFT) && appCursor != 0) {
-    appCursor--;
-    fsLoadAppEntry(appFilenames[appCursor], &appEntries[0]);
-    gfxPrevEntry();
-  }
-
-  if (JOY_getButtonJustPressed(0, BUTTON_A)) {
-    I_SYS_loadApp(appEntries[0].path);
-  };
-
-  gfxMovePlanes();
+  controlsProcess();
+  gfxBeforeRender();
   GFX_render();
-  gfxDrawThumbnails();
+  gfxAfterRender();
 }

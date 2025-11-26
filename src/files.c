@@ -5,26 +5,26 @@
 #include <string.h>
 
 char appFilenames[4096][255];
-struct AppEntry appEntries[5];
+struct AppEntry appEntries[APP_ENTRY_AMOUNT];
 uint32_t appCount = 0;
 
-char *getPathExtension(char *path) {
-  char *dot = strrchr(path, '.');
+char* getPathExtension(char* path) {
+  char* dot = strrchr(path, '.');
   if (!dot || dot == path) return "";
   return dot + 1;
 }
 
-void readMetaItem(FILE *file, void *out) {
+void readMetaItem(FILE* file, void* out) {
   uint32_t itemSize;
   fread(&itemSize, sizeof(itemSize), 1, file);
   fread(out, sizeof(char), itemSize, file);
 }
 
-bool fsCheckAppValidity(char *path) {
+bool fsCheckAppValidity(char* path) {
   char tempPath[STRING_BUF_SIZE];
   snprintf(tempPath, sizeof(tempPath), "./apps/%s", path);
 
-  FILE *file = fopen(tempPath, "r");
+  FILE* file = fopen(tempPath, "r");
 
   // ANDES magic header check
   char magicHeader[6];
@@ -36,9 +36,17 @@ bool fsCheckAppValidity(char *path) {
   return isValidApp;
 }
 
-bool fsLoadAppEntry(char *path, struct AppEntry *entry) {
-  snprintf(entry->path, sizeof(entry->path), "./apps/%s", path);
-  FILE *file = fopen(entry->path, "r");
+bool fsLoadAppEntry(int index) {
+  struct AppEntry* entry = &appEntries[index % APP_ENTRY_AMOUNT];
+
+  if (strlen(appFilenames[index]) == 0) {
+    entry->exists = false;
+    return false;
+  }
+  entry->exists = true;
+
+  snprintf(entry->path, sizeof(entry->path), "./apps/%s", appFilenames[index]);
+  FILE* file = fopen(entry->path, "r");
 
   fseek(file, ANDES_HEADER_SIZE, SEEK_SET);
 
@@ -55,10 +63,11 @@ bool fsLoadAppEntry(char *path, struct AppEntry *entry) {
   readMetaItem(file, entry->bigThumbnail);
 
   for (int i = 0; i < sizeof(entry->bigThumbnail); i++) {
-    entry->bigThumbnail[i] += 128;
+    entry->bigThumbnail[i] += THUMBNAIL_PALETTE_OFFSET;
   }
   for (int i = 0; i < sizeof(entry->smallThumbnail); i++) {
-    entry->smallThumbnail[i] += 128;
+    entry->smallThumbnail[i] +=
+        THUMBNAIL_PALETTE_OFFSET + BIG_THUMBNAIL_COLOURS + (index % APP_ENTRY_AMOUNT) * SMALL_THUMBNAIL_COLOURS;
   }
 
   fclose(file);
@@ -67,12 +76,13 @@ bool fsLoadAppEntry(char *path, struct AppEntry *entry) {
 }
 
 void fsInit() {
-  DIR *d;
-  struct dirent *dir;
+  DIR* d;
+  struct dirent* dir;
   d = opendir("./apps");
   if (d) {
     while ((dir = readdir(d)) != NULL) {
-      if (dir->d_type != 4) continue;
+      if (dir->d_type != 4 && dir->d_type != 1) continue;
+
       if (!fsCheckAppValidity(dir->d_name)) continue;
 
       strncpy(appFilenames[appCount], dir->d_name, sizeof(appFilenames[appCount]));
